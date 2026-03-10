@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>🍊 橘子濟州島家族旅行</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#fdf8f2;--paper:#f5ede0;--paper2:#e8d8c4;
+  --jeju:#e8650a;--jeju2:#c4540a;
+  --teal:#1a7a5e;--teal2:#145e48;
+  --amber:#d47a0a;--amber2:#b06408;
+  --green:#2d7a3a;--purple:#6b3fa0;--blue:#1a5fa0;
+  --sky:#2a7fbf;
+  --ink:#2c1810;--ink2:#5a3e2b;--ink3:#8a6a52;--ink4:#b89a7e;
+  --white:#fffdf7;--shadow:rgba(44,24,16,0.12);--shadow2:rgba(44,24,16,0.06);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--cream);color:var(--ink);height:100dvh;display:flex;flex-direction:column;overflow:hidden;-webkit-tap-highlight-color:transparent;background-image:linear-gradient(rgba(232,101,10,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(232,101,10,0.05) 1px,transparent 1px);background-size:28px 28px;}
+::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--paper2);border-radius:99px;}
+
+/* LOADING */
+#loading-screen{position:fixed;inset:0;z-index:999;background:var(--cream);background-image:linear-gradient(rgba(232,101,10,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(232,101,10,0.07) 1px,transparent 1px);background-size:28px 28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;}
+.ld-icon{font-size:3rem;animation:bounce 1.2s ease infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.ld-title{font-family:'Noto Serif TC',serif;font-size:1.5rem;font-weight:900;color:var(--jeju);}
+.ld-sub{font-size:0.75rem;color:var(--ink3);letter-spacing:0.1em;}
+.ld-bar-bg{width:160px;height:3px;background:var(--paper2);border-radius:99px;overflow:hidden;}
+.ld-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--jeju),var(--amber));border-radius:99px;animation:ldbar 2s ease forwards;}
+@keyframes ldbar{0%{width:0%}60%{width:70%}100%{width:90%}}
+.ld-msg{font-size:0.72rem;color:var(--ink3);letter-spacing:0.06em;}
+.ld-error{display:none;color:var(--jeju);font-size:0.78rem;text-align:center;padding:0 28px;line-height:1.7;white-space:pre-line;margin-top:4px;}
+.ld-error.show{display:block;}
+
+/* HEADER */
+.app-header{background:var(--jeju);z-index:10;position:relative;overflow:hidden;flex-shrink:0;}
+.app-header::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(-45deg,transparent,transparent 4px,rgba(255,255,255,0.05) 4px,rgba(255,255,255,0.05) 8px);pointer-events:none;}
+/* Decorative oranges in header */
+.app-header::after{content:'🍊';position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:2.8rem;opacity:0.15;pointer-events:none;}
+.header-top{display:flex;justify-content:space-between;align-items:center;padding:10px 18px 8px;}
+.header-title{font-family:'Noto Serif TC',serif;font-size:1.2rem;font-weight:900;color:#fff;letter-spacing:0.06em;text-shadow:1px 2px 4px rgba(0,0,0,0.3);}
+.header-sub{font-size:0.6rem;color:rgba(255,255,255,0.7);margin-top:3px;letter-spacing:0.12em;}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;}
+.header-badge{background:var(--amber);color:#fff;font-size:0.58rem;font-weight:700;padding:2px 8px;border-radius:3px;letter-spacing:0.1em;}
+.sync-row{display:flex;align-items:center;gap:5px;}
+.sync-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.3);transition:all 0.3s;}
+.sync-dot.online{background:#7ef7b0;box-shadow:0 0 6px rgba(126,247,176,0.7);}
+.sync-dot.saving{background:#ffd97d;animation:pulse 0.8s ease infinite;}
+.sync-dot.error{background:#ffb3b3;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.sync-text{font-size:0.55rem;color:rgba(255,255,255,0.6);letter-spacing:0.06em;}
+.header-icons{display:flex;align-items:center;background:var(--jeju2);padding:5px 18px;overflow:hidden;}
+.hdr-icon{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,0.55);font-size:0.6rem;letter-spacing:0.08em;padding-right:14px;border-right:1px solid rgba(255,255,255,0.15);margin-right:14px;white-space:nowrap;flex-shrink:0;}
+.hdr-icon:last-child{border-right:none;}
+.hdr-icon svg{width:13px;height:13px;opacity:0.7;flex-shrink:0;}
+
+/* MAIN */
+#app-content{flex:1;overflow-y:auto;padding-bottom:90px;}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:20;background:var(--white);border-top:2px solid var(--paper2);display:flex;padding:8px 0 calc(8px + env(safe-area-inset-bottom));box-shadow:0 -4px 20px var(--shadow);}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;color:var(--ink4);cursor:pointer;padding:4px 0;transition:color 0.2s;}
+.nav-btn.active{color:var(--jeju);}
+.nav-btn.active .nav-iw{background:rgba(232,101,10,0.1);}
+.nav-iw{width:36px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:8px;transition:background 0.2s;}
+.nav-btn svg{width:20px;height:20px;stroke-width:1.8;}
+.nav-btn span{font-size:0.6rem;font-weight:700;letter-spacing:0.04em;}
+
+/* FAB */
+.fab{position:fixed;bottom:78px;right:18px;z-index:20;width:50px;height:50px;border-radius:14px;border:none;background:var(--jeju);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 16px rgba(232,101,10,0.4),0 2px 6px rgba(0,0,0,0.15);transition:transform 0.15s;}
+.fab:active{transform:scale(0.92);}
+.fab svg{width:22px;height:22px;stroke-width:2.5;}
+
+/* SECTION HERO */
+.sec-hero{background:var(--paper);border-bottom:2px solid var(--paper2);padding:12px 18px 10px;display:flex;align-items:center;gap:10px;}
+.sec-hero-icon{font-size:1.5rem;line-height:1;}
+.sec-hero-title{font-family:'Noto Serif TC',serif;font-size:1rem;font-weight:900;color:var(--ink);}
+.sec-hero-sub{font-size:0.68rem;color:var(--ink3);margin-top:2px;}
+
+/* DATE TABS */
+.date-tabs{position:sticky;top:0;z-index:9;background:var(--paper);border-bottom:2px solid var(--paper2);display:flex;gap:8px;padding:10px 14px;overflow-x:auto;box-shadow:0 2px 8px var(--shadow2);}
+.date-tabs::-webkit-scrollbar{display:none;}
+.date-tab{flex-shrink:0;display:flex;flex-direction:column;align-items:center;padding:7px 14px;border-radius:10px;border:1.5px solid var(--paper2);background:var(--white);cursor:pointer;transition:all 0.2s;color:var(--ink3);}
+.date-tab:hover{border-color:var(--jeju);color:var(--jeju);}
+.date-tab.active{background:var(--jeju);border-color:var(--jeju);color:#fff;box-shadow:0 3px 10px rgba(232,101,10,0.3);}
+.date-tab .dl{font-size:0.58rem;font-weight:700;letter-spacing:0.1em;}
+.date-tab .dd{font-size:0.8rem;font-weight:700;margin-top:2px;}
+
+/* DAY BANNER */
+.day-banner{margin:12px 12px 0;background:var(--teal);border-radius:14px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;overflow:hidden;position:relative;box-shadow:0 3px 12px rgba(26,122,94,0.25);}
+.day-banner::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(-45deg,transparent,transparent 5px,rgba(255,255,255,0.03) 5px,rgba(255,255,255,0.03) 10px);}
+.day-banner-txt{position:relative;z-index:1;}
+.day-banner-title{font-family:'Noto Serif TC',serif;font-weight:900;color:#fff;font-size:0.9rem;}
+.day-banner-sub{font-size:0.63rem;color:rgba(255,255,255,0.65);margin-top:3px;}
+.day-banner-icons{display:flex;gap:8px;position:relative;z-index:1;font-size:1.3rem;}
+
+/* WHO BADGE */
+.who-badge{display:inline-flex;align-items:center;gap:3px;font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;margin-right:4px;letter-spacing:0.04em;}
+.who-all{background:rgba(232,101,10,0.12);color:var(--jeju2);}
+.who-sis{background:rgba(107,63,160,0.1);color:var(--purple);}
+.who-parents{background:rgba(26,122,94,0.1);color:var(--teal2);}
+
+/* CATEGORY BADGE */
+.cat-badge{display:inline-flex;align-items:center;gap:4px;font-size:0.62rem;font-weight:700;padding:2px 8px;border-radius:20px;margin-bottom:6px;letter-spacing:0.04em;}
+.cat-food{background:rgba(212,122,10,0.12);color:var(--amber2);}
+.cat-transport{background:rgba(26,122,94,0.1);color:var(--teal2);}
+.cat-shopping{background:rgba(107,63,160,0.1);color:var(--purple);}
+.cat-sightseeing{background:rgba(45,122,58,0.1);color:var(--green);}
+.cat-hotel{background:rgba(26,95,160,0.1);color:var(--blue);}
+.cat-other{background:rgba(44,24,16,0.07);color:var(--ink2);}
+
+/* TIMELINE */
+.timeline{padding:12px 12px 8px;display:flex;flex-direction:column;}
+.tl-item{display:flex;position:relative;padding-bottom:12px;animation:fadeUp 0.3s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.tl-time-col{flex-shrink:0;width:46px;padding-top:10px;text-align:right;padding-right:8px;}
+.tl-time-start{font-size:0.63rem;font-weight:700;color:var(--jeju);letter-spacing:0.02em;line-height:1;}
+.tl-time-end{font-size:0.55rem;color:var(--ink4);margin-top:2px;}
+.tl-spine{flex-shrink:0;width:18px;display:flex;flex-direction:column;align-items:center;padding-top:12px;}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--jeju);flex-shrink:0;box-shadow:0 0 0 3px rgba(232,101,10,0.15);position:relative;z-index:1;}
+.tl-line{flex:1;width:1.5px;background:linear-gradient(to bottom,var(--paper2),rgba(200,170,130,0.15));margin-top:4px;}
+.tl-item:last-child .tl-line{display:none;}
+.tl-card{flex:1;background:var(--white);border:1.5px solid var(--paper2);border-radius:12px;padding:10px 12px;margin-left:8px;min-width:0;box-shadow:0 2px 8px var(--shadow2);transition:box-shadow 0.2s;}
+.tl-card:hover{box-shadow:0 4px 14px var(--shadow);}
+.tl-card-header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
+.tl-title{font-weight:700;font-size:0.92rem;color:var(--ink);line-height:1.35;flex:1;}
+.tl-actions{display:flex;gap:2px;flex-shrink:0;}
+.tl-btn{background:none;border:none;cursor:pointer;color:var(--ink4);padding:4px;border-radius:6px;transition:color 0.15s,background 0.15s;}
+.tl-btn:hover{color:var(--amber);background:rgba(212,122,10,0.1);}
+.tl-btn.del:hover{color:var(--jeju);background:rgba(232,101,10,0.1);}
+.tl-btn svg{width:13px;height:13px;}
+.loc-chip{display:inline-flex;align-items:center;gap:4px;margin-top:6px;background:rgba(26,122,94,0.07);color:var(--teal);border:1px solid rgba(26,122,94,0.2);border-radius:6px;padding:3px 8px;font-size:0.67rem;font-weight:600;cursor:pointer;transition:background 0.15s;max-width:100%;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;text-decoration:none;}
+.loc-chip:hover{background:rgba(26,122,94,0.14);}
+.loc-chip svg{width:10px;height:10px;flex-shrink:0;}
+.tl-note{font-size:0.72rem;color:var(--ink3);margin-top:6px;background:var(--paper);border-left:2.5px solid var(--amber);padding:5px 9px;border-radius:0 6px 6px 0;line-height:1.7;white-space:pre-line;}
+.tl-budget{display:inline-flex;align-items:center;gap:5px;margin-top:6px;background:rgba(232,101,10,0.07);color:var(--jeju);border:1px solid rgba(232,101,10,0.18);border-radius:6px;padding:3px 9px;font-size:0.67rem;font-weight:700;}
+.empty-state{text-align:center;color:var(--ink4);font-size:0.85rem;padding:48px 20px;line-height:2;}
+.empty-state-icon{font-size:2.5rem;display:block;margin-bottom:8px;}
+
+/* NOTES TAB */
+.sec-pad{padding:12px;}
+.notes-card{background:var(--white);border:1.5px solid var(--paper2);border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:0 2px 8px var(--shadow2);}
+.notes-card-title{font-family:'Noto Serif TC',serif;font-size:0.95rem;font-weight:900;color:var(--ink);margin-bottom:10px;display:flex;align-items:center;gap:7px;}
+.notes-card-title .nc-icon{font-size:1.1rem;}
+.notes-body{font-size:0.8rem;color:var(--ink2);line-height:1.85;white-space:pre-line;}
+.notes-tag{display:inline-flex;align-items:center;gap:3px;background:rgba(232,101,10,0.1);color:var(--jeju2);border-radius:6px;padding:2px 8px;font-size:0.68rem;font-weight:700;margin:2px 3px 2px 0;}
+.notes-tag.green{background:rgba(26,122,94,0.1);color:var(--teal2);}
+.notes-tag.purple{background:rgba(107,63,160,0.1);color:var(--purple);}
+.accom-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.accom-item{background:var(--paper);border:1.5px solid var(--paper2);border-radius:10px;padding:8px 12px;flex:1;min-width:140px;}
+.accom-date{font-size:0.6rem;font-weight:700;color:var(--ink3);letter-spacing:0.1em;margin-bottom:2px;}
+.accom-name{font-size:0.8rem;font-weight:700;color:var(--ink);}
+.accom-who{font-size:0.65rem;color:var(--ink3);margin-top:2px;}
+.remind-list{list-style:none;padding:0;margin-top:6px;}
+.remind-list li{font-size:0.8rem;color:var(--ink2);padding:5px 0;border-bottom:1px solid var(--paper);line-height:1.6;display:flex;align-items:flex-start;gap:6px;}
+.remind-list li:last-child{border-bottom:none;}
+.remind-list li::before{content:'›';color:var(--jeju);font-weight:700;margin-top:1px;}
+
+/* TODO */
+.prog-card{background:var(--white);border:1.5px solid var(--paper2);border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 2px 8px var(--shadow2);}
+.prog-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;}
+.prog-title{font-weight:700;font-size:0.9rem;color:var(--ink);}
+.prog-count{font-size:0.82rem;font-weight:700;color:var(--jeju);}
+.prog-bar-bg{height:5px;background:var(--paper2);border-radius:99px;overflow:hidden;}
+.prog-bar-fill{height:100%;background:linear-gradient(90deg,var(--jeju),var(--amber));border-radius:99px;transition:width 0.5s ease;}
+.prog-label{font-size:0.68rem;color:var(--ink3);margin-top:7px;}
+.todo-list{background:var(--white);border:1.5px solid var(--paper2);border-radius:14px;overflow:hidden;box-shadow:0 2px 8px var(--shadow2);}
+.todo-item{display:flex;align-items:center;padding:11px 14px;border-bottom:1px solid var(--paper);gap:10px;cursor:grab;user-select:none;transition:background 0.15s;}
+.todo-item:last-child{border-bottom:none;}
+.todo-item.dragging{opacity:0.5;background:var(--paper);}
+.todo-item.drag-over{background:rgba(232,101,10,0.05);border-top:2px solid var(--jeju);}
+.drag-handle{color:var(--ink4);cursor:grab;flex-shrink:0;padding:2px;}
+.drag-handle svg{width:14px;height:14px;}
+.todo-checkbox{appearance:none;-webkit-appearance:none;width:19px;height:19px;border:1.5px solid var(--ink4);border-radius:6px;background:transparent;cursor:pointer;flex-shrink:0;transition:all 0.2s;position:relative;}
+.todo-checkbox:checked{background:var(--jeju);border-color:var(--jeju);box-shadow:0 2px 6px rgba(232,101,10,0.3);}
+.todo-checkbox:checked::after{content:'';position:absolute;width:5px;height:8px;border-right:2px solid white;border-bottom:2px solid white;transform:rotate(45deg) translate(-1px,-1px);}
+.todo-main{flex:1;min-width:0;}
+.todo-text{font-size:0.855rem;color:var(--ink);line-height:1.3;}
+.todo-text.done{color:var(--ink4);text-decoration:line-through;}
+.todo-note-line{font-size:0.68rem;color:var(--ink3);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.todo-link-line{display:inline-flex;align-items:center;gap:3px;font-size:0.65rem;color:var(--teal);margin-top:2px;text-decoration:none;}
+.todo-link-line:hover{text-decoration:underline;}
+.todo-link-line svg{width:10px;height:10px;}
+.todo-edit-btn,.todo-del-btn{background:none;border:none;cursor:pointer;color:var(--ink4);padding:4px;border-radius:6px;transition:color 0.15s;flex-shrink:0;}
+.todo-edit-btn:hover{color:var(--amber);}
+.todo-del-btn:hover{color:var(--jeju);}
+.todo-edit-btn svg,.todo-del-btn svg{width:13px;height:13px;}
+
+/* EXPENSES */
+.exp-hero{margin:12px;background:var(--jeju);border-radius:18px;padding:18px;position:relative;overflow:hidden;box-shadow:0 6px 20px rgba(232,101,10,0.3);}
+.exp-hero::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(-45deg,transparent,transparent 6px,rgba(255,255,255,0.04) 6px,rgba(255,255,255,0.04) 12px);}
+.exp-hero::after{content:'₩';position:absolute;right:-4px;top:-16px;font-size:110px;font-weight:900;color:rgba(255,255,255,0.07);font-family:'Playfair Display',serif;pointer-events:none;}
+.exp-lbl{font-size:0.58rem;color:rgba(255,255,255,0.65);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:5px;position:relative;z-index:1;}
+.exp-total{font-size:2.1rem;font-weight:900;color:#fff;letter-spacing:-0.02em;line-height:1;margin-bottom:14px;font-family:'Playfair Display',serif;position:relative;z-index:1;}
+.exp-split{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:relative;z-index:1;}
+.exp-si{background:rgba(255,255,255,0.12);border-radius:9px;padding:9px 11px;}
+.exp-si-lbl{font-size:0.6rem;color:rgba(255,255,255,0.65);margin-bottom:3px;}
+.exp-si-val{font-size:0.9rem;font-weight:700;color:#fff;}
+.exp-tabs{display:flex;gap:6px;padding:10px 12px 6px;overflow-x:auto;}
+.exp-tabs::-webkit-scrollbar{display:none;}
+.exp-tab{flex-shrink:0;font-size:0.68rem;font-weight:700;padding:5px 12px;border-radius:20px;border:1.5px solid var(--paper2);background:var(--white);color:var(--ink3);cursor:pointer;transition:all 0.15s;}
+.exp-tab.active{background:var(--jeju);border-color:var(--jeju);color:#fff;}
+.exp-sec-title{font-size:0.6rem;font-weight:700;color:var(--ink3);letter-spacing:0.16em;text-transform:uppercase;padding:2px 12px 8px;}
+.exp-list{display:flex;flex-direction:column;gap:7px;padding:0 12px;}
+.exp-item{background:var(--white);border:1.5px solid var(--paper2);border-radius:12px;padding:11px 13px;display:flex;justify-content:space-between;align-items:center;gap:10px;box-shadow:0 2px 6px var(--shadow2);}
+.exp-item-l{flex:1;min-width:0;}
+.exp-item-name{font-weight:700;font-size:0.855rem;color:var(--ink);}
+.exp-item-meta{display:flex;align-items:center;gap:6px;margin-top:3px;}
+.exp-item-type{font-size:0.6rem;color:var(--ink3);}
+.exp-item-r{display:flex;align-items:center;gap:8px;text-align:right;}
+.exp-amt{font-size:0.9rem;font-weight:700;}
+.exp-amt.krw{color:var(--jeju);}
+.exp-amt.twd{color:var(--teal);}
+.exp-approx{font-size:0.6rem;color:var(--ink4);margin-top:2px;}
+.exp-del-btn{background:none;border:none;cursor:pointer;color:var(--ink4);padding:4px;border-radius:6px;transition:color 0.15s;}
+.exp-del-btn:hover{color:var(--jeju);}
+.exp-del-btn svg{width:13px;height:13px;}
+.exp-auto-tag{font-size:0.55rem;background:rgba(45,122,58,0.1);color:var(--green);border-radius:3px;padding:1px 5px;margin-left:4px;font-weight:700;}
+
+/* EXCHANGE */
+.exch-wrap{padding:16px;display:flex;flex-direction:column;align-items:center;gap:14px;}
+.exch-card{background:var(--white);border:1.5px solid var(--paper2);border-radius:20px;width:100%;max-width:380px;overflow:hidden;box-shadow:0 4px 16px var(--shadow);}
+.exch-hdr{background:var(--teal);padding:16px 18px;text-align:center;position:relative;overflow:hidden;}
+.exch-hdr::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(-45deg,transparent,transparent 5px,rgba(255,255,255,0.04) 5px,rgba(255,255,255,0.04) 10px);}
+.exch-hdr-title{font-family:'Noto Serif TC',serif;font-size:1rem;color:#fff;font-weight:900;letter-spacing:0.05em;}
+.exch-hdr-sub{font-size:0.63rem;color:rgba(255,255,255,0.65);margin-top:4px;letter-spacing:0.08em;}
+.exch-body{padding:20px 16px;display:flex;flex-direction:column;gap:12px;}
+.calc-field label{display:block;font-size:0.6rem;font-weight:700;color:var(--ink3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px;}
+.calc-wrap{display:flex;align-items:center;background:var(--paper);border:1.5px solid var(--paper2);border-radius:12px;padding:10px 13px;transition:border-color 0.2s,box-shadow 0.2s;}
+.calc-wrap:focus-within{border-color:var(--jeju);box-shadow:0 0 0 3px rgba(232,101,10,0.1);}
+.calc-cur{font-size:0.75rem;font-weight:700;color:var(--ink3);margin-right:9px;letter-spacing:0.06em;}
+.calc-in{flex:1;background:transparent;border:none;outline:none;font-size:1.6rem;font-weight:900;color:var(--ink);min-width:0;font-family:'Playfair Display',serif;}
+.calc-in::placeholder{color:var(--ink4);}
+.calc-in.res{color:var(--jeju);}
+.exch-div{display:flex;justify-content:center;}
+.exch-arrow{background:var(--paper);border:1.5px solid var(--paper2);border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;color:var(--teal);}
+.exch-arrow svg{width:15px;height:15px;}
+.exch-tip{text-align:center;font-size:0.7rem;color:var(--ink3);line-height:1.7;}
+
+/* MODALS */
+#modal-overlay{position:fixed;inset:0;z-index:50;background:rgba(44,24,16,0.45);backdrop-filter:blur(3px);display:none;align-items:flex-end;justify-content:center;}
+#modal-overlay.show{display:flex;}
+.modal{background:var(--white);border-top:2px solid var(--paper2);border-radius:24px 24px 0 0;width:100%;max-width:500px;padding:18px 18px calc(18px + env(safe-area-inset-bottom));animation:slideUp 0.28s cubic-bezier(0.16,1,0.3,1) both;display:none;box-shadow:0 -8px 32px var(--shadow);max-height:90dvh;overflow-y:auto;}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal.show{display:block;}
+.m-handle{width:36px;height:4px;background:var(--paper2);border-radius:99px;margin:0 auto 16px;}
+.m-title{font-family:'Noto Serif TC',serif;font-size:1.05rem;font-weight:900;color:var(--ink);margin-bottom:16px;}
+.fg{margin-bottom:13px;}
+.fl{display:block;font-size:0.58rem;font-weight:700;color:var(--ink3);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:6px;}
+.fl-hint{font-family:'Noto Sans TC';text-transform:none;letter-spacing:0;font-size:0.7rem;color:var(--ink4);}
+.frow{display:flex;gap:10px;}
+.frow .fg{flex:1;}
+.fi,.fs,.fta{width:100%;background:var(--paper);border:1.5px solid var(--paper2);border-radius:10px;padding:9px 12px;color:var(--ink);font-family:'Noto Sans TC',sans-serif;font-size:0.855rem;outline:none;transition:border-color 0.2s,box-shadow 0.2s;}
+.fi:focus,.fs:focus,.fta:focus{border-color:var(--jeju);box-shadow:0 0 0 3px rgba(232,101,10,0.1);}
+.fi::placeholder,.fta::placeholder{color:var(--ink4);}
+.fs{appearance:none;}
+.fta{resize:vertical;min-height:70px;line-height:1.6;}
+.fi-icon-wrap{position:relative;}
+.fi-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--ink4);}
+.fi-icon svg{width:13px;height:13px;}
+.fi-icon-wrap .fi{padding-left:32px;}
+.cat-selector{display:flex;flex-wrap:wrap;gap:7px;}
+.cat-pill{display:flex;align-items:center;gap:5px;padding:6px 12px;border-radius:20px;border:1.5px solid var(--paper2);background:var(--white);font-size:0.75rem;font-weight:700;cursor:pointer;transition:all 0.15s;color:var(--ink3);}
+.cat-pill.sel-food{background:rgba(212,122,10,0.12);border-color:var(--amber);color:var(--amber2);}
+.cat-pill.sel-transport{background:rgba(26,122,94,0.12);border-color:var(--teal);color:var(--teal2);}
+.cat-pill.sel-shopping{background:rgba(107,63,160,0.12);border-color:var(--purple);color:var(--purple);}
+.cat-pill.sel-sightseeing{background:rgba(45,122,58,0.12);border-color:var(--green);color:var(--green);}
+.cat-pill.sel-hotel{background:rgba(26,95,160,0.12);border-color:var(--blue);color:var(--blue);}
+.cat-pill.sel-other{background:rgba(44,24,16,0.07);border-color:var(--ink3);color:var(--ink2);}
+.budget-row{display:flex;gap:8px;align-items:flex-end;}
+.budget-row .fg{flex:1;}
+.budget-converted{background:var(--paper);border:1px solid var(--paper2);border-radius:8px;padding:8px 10px;font-size:0.75rem;color:var(--ink3);min-width:90px;text-align:center;}
+.budget-converted strong{color:var(--jeju);font-size:0.85rem;}
+.m-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px;}
+.btn-cancel{background:none;border:1.5px solid var(--paper2);border-radius:10px;padding:9px 16px;color:var(--ink2);font-family:'Noto Sans TC',sans-serif;font-size:0.855rem;cursor:pointer;transition:background 0.15s;}
+.btn-cancel:hover{background:var(--paper);}
+.btn-save{background:var(--jeju);border:none;border-radius:10px;padding:9px 22px;color:#fff;font-family:'Noto Sans TC',sans-serif;font-size:0.855rem;font-weight:700;cursor:pointer;transition:background 0.15s,transform 0.1s;}
+.btn-save:hover{background:var(--jeju2);}
+.btn-save:active{transform:scale(0.96);}
+</style>
+</head>
+<body>
+
+<!-- Loading -->
+<div id="loading-screen">
+  <div class="ld-icon">🍊</div>
+  <div class="ld-title">橘子濟州島旅行</div>
+  <div class="ld-sub">2026 · 家族の旅</div>
+  <div class="ld-bar-bg"><div class="ld-bar-fill"></div></div>
+  <div class="ld-msg" id="ld-msg">連線中...</div>
+  <div class="ld-error" id="ld-error"></div>
+</div>
+
+<!-- Header -->
+<header class="app-header" id="main-header" style="display:none">
+  <div class="header-top">
+    <div>
+      <div class="header-title">🍊 橘子濟州島</div>
+      <div class="header-sub">2026.4.19–25 · 家族旅行</div>
+    </div>
+    <div class="header-right">
+      <div class="header-badge">JEJU FAMILY TRIP</div>
+      <div class="sync-row">
+        <div class="sync-dot" id="sync-dot"></div>
+        <div class="sync-text" id="sync-text">連線中</div>
+      </div>
+    </div>
+  </div>
+  <div class="header-icons">
+    <div class="hdr-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>韓國濟州島</div>
+    <div class="hdr-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>7天6夜</div>
+    <div class="hdr-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>姊姊＋妹爸媽</div>
+    <div class="hdr-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>租車自駕</div>
+  </div>
+</header>
+
+<!-- Main content -->
+<div id="app-content"></div>
+
+<!-- Bottom Nav -->
+<nav class="bottom-nav" id="main-nav" style="display:none">
+  <button class="nav-btn active" id="nav-itinerary" onclick="switchTab('itinerary')">
+    <div class="nav-iw"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div>
+    <span>行程</span>
+  </button>
+  <button class="nav-btn" id="nav-todo" onclick="switchTab('todo')">
+    <div class="nav-iw"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg></div>
+    <span>準備</span>
+  </button>
+  <button class="nav-btn" id="nav-notes" onclick="switchTab('notes')">
+    <div class="nav-iw"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
+    <span>手帳</span>
+  </button>
+  <button class="nav-btn" id="nav-expenses" onclick="switchTab('expenses')">
+    <div class="nav-iw"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+    <span>記帳</span>
+  </button>
+  <button class="nav-btn" id="nav-exchange" onclick="switchTab('exchange')">
+    <div class="nav-iw"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg></div>
+    <span>換算</span>
+  </button>
+</nav>
+
+<!-- FAB -->
+<button class="fab" id="fab" style="display:none" onclick="handleFabClick()">
+  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+</button>
+
+<!-- Modal Overlay -->
+<div id="modal-overlay" onclick="handleOverlayClick(event)">
+
+  <!-- Itinerary Modal -->
+  <div class="modal" id="itinerary-modal" onclick="event.stopPropagation()">
+    <div class="m-handle"></div>
+    <div class="m-title" id="it-modal-title">新增行程</div>
+    <input type="hidden" id="it-edit-id">
+    <div class="fg">
+      <label class="fl">分類</label>
+      <div class="cat-selector">
+        <div class="cat-pill" data-cat="food" onclick="selectCat('food')">🍖 用餐</div>
+        <div class="cat-pill" data-cat="transport" onclick="selectCat('transport')">🚗 交通</div>
+        <div class="cat-pill" data-cat="shopping" onclick="selectCat('shopping')">🛍️ 購物</div>
+        <div class="cat-pill" data-cat="sightseeing" onclick="selectCat('sightseeing')">🏝️ 觀光</div>
+        <div class="cat-pill" data-cat="hotel" onclick="selectCat('hotel')">🏨 住宿</div>
+        <div class="cat-pill sel-other" data-cat="other" onclick="selectCat('other')">📌 其他</div>
+      </div>
+      <input type="hidden" id="it-cat" value="other">
+    </div>
+    <div class="fg">
+      <label class="fl">標題</label>
+      <input type="text" id="it-title" placeholder="例：城山日出峰" class="fi">
+    </div>
+    <div class="frow">
+      <div class="fg">
+        <label class="fl">開始時間</label>
+        <input type="time" id="it-time-start" value="10:00" class="fi">
+      </div>
+      <div class="fg">
+        <label class="fl">結束時間 <span class="fl-hint">（選填）</span></label>
+        <input type="time" id="it-time-end" class="fi">
+      </div>
+    </div>
+    <div class="fg">
+      <label class="fl">地點 <span class="fl-hint">（可輸入韓文地名）</span></label>
+      <div class="fi-icon-wrap">
+        <span class="fi-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></span>
+        <input type="text" id="it-location" placeholder="例：성산일출봉" class="fi">
+      </div>
+    </div>
+    <div class="fg">
+      <label class="fl">備註 <span class="fl-hint">（選填）</span></label>
+      <textarea id="it-note" rows="3" placeholder="例：記得早點出發避開人潮" class="fta"></textarea>
+    </div>
+    <div class="fg">
+      <label class="fl">預計花費 <span class="fl-hint">（選填，自動匯入記帳）</span></label>
+      <div class="budget-row">
+        <div class="fg">
+          <div class="frow" style="gap:6px">
+            <div class="fg" style="flex:0 0 100px">
+              <select id="it-budget-cur" class="fs" onchange="updateBudgetPreview()">
+                <option value="KRW">KRW 韓幣</option>
+                <option value="TWD">TWD 台幣</option>
+              </select>
+            </div>
+            <div class="fg">
+              <input type="number" id="it-budget" placeholder="0" class="fi" oninput="updateBudgetPreview()">
+            </div>
+          </div>
+        </div>
+        <div class="budget-converted" id="budget-preview">換算：—</div>
+      </div>
+    </div>
+    <div class="m-actions">
+      <button class="btn-cancel" onclick="closeModal()">取消</button>
+      <button class="btn-save" onclick="saveItinerary()">儲存</button>
+    </div>
+  </div>
+
+  <!-- Todo Modal -->
+  <div class="modal" id="todo-modal" onclick="event.stopPropagation()">
+    <div class="m-handle"></div>
+    <div class="m-title" id="todo-modal-title">新增待辦</div>
+    <input type="hidden" id="todo-edit-id">
+    <div class="fg">
+      <label class="fl">事項名稱</label>
+      <input type="text" id="todo-text-input" placeholder="例：換韓幣現金" class="fi">
+    </div>
+    <div class="fg">
+      <label class="fl">備註 <span class="fl-hint">（選填）</span></label>
+      <textarea id="todo-note-input" rows="2" placeholder="例：建議出發前先換好" class="fta"></textarea>
+    </div>
+    <div class="fg">
+      <label class="fl">相關連結 <span class="fl-hint">（選填）</span></label>
+      <div class="fi-icon-wrap">
+        <span class="fi-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg></span>
+        <input type="url" id="todo-link-input" placeholder="https://..." class="fi">
+      </div>
+    </div>
+    <div class="fg">
+      <label class="fl">連結顯示文字 <span class="fl-hint">（選填）</span></label>
+      <input type="text" id="todo-link-label-input" placeholder="例：購票網站" class="fi">
+    </div>
+    <div class="m-actions">
+      <button class="btn-cancel" onclick="closeModal()">取消</button>
+      <button class="btn-save" onclick="saveTodo()">儲存</button>
+    </div>
+  </div>
+
+  <!-- Expense Modal -->
+  <div class="modal" id="expense-modal" onclick="event.stopPropagation()">
+    <div class="m-handle"></div>
+    <div class="m-title">新增花費</div>
+    <div class="fg">
+      <label class="fl">項目名稱</label>
+      <input type="text" id="ex-title" placeholder="例：晚餐-우진해장국" class="fi">
+    </div>
+    <div class="fg">
+      <label class="fl">分類</label>
+      <select id="ex-source" class="fs">
+        <option value="pre">🏠 行前開銷</option>
+        <option value="trip">🏝️ 出遊開銷</option>
+        <option value="plan">🛒 預計購買</option>
+      </select>
+    </div>
+    <div class="frow">
+      <div class="fg" style="flex:0 0 110px">
+        <label class="fl">幣別</label>
+        <select id="ex-cur" class="fs">
+          <option value="KRW">KRW 韓幣</option>
+          <option value="TWD">TWD 台幣</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label class="fl">金額</label>
+        <input type="number" id="ex-amount" placeholder="0" class="fi">
+      </div>
+    </div>
+    <div class="m-actions">
+      <button class="btn-cancel" onclick="closeModal()">取消</button>
+      <button class="btn-save" onclick="saveExpense()">儲存</button>
+    </div>
+  </div>
+
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, doc, getDocs, setDoc, updateDoc, deleteDoc, writeBatch, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+// ⚠️ 請換成您自己的 Firebase 專案設定
+const fbApp = initializeApp({
+  apiKey:"AIzaSyByjMMLqvP3AMxSEom8xaqc6OuTWnnQm_o",
+  authDomain:"summerhkg-31155.firebaseapp.com",
+  projectId:"summerhkg-31155",
+  storageBucket:"summerhkg-31155.firebasestorage.app",
+  messagingSenderId:"136735319981",
+  appId:"1:136735319981:web:258a628dbdff6cf6112324"
+});
+const db = getFirestore(fbApp);
+
+// 1 KRW ≈ 0.023 TWD（約43:1）
+const KRW_TO_TWD = 0.023;
+
+// ── Seed data from Excel ──
+const SEED_IT = {
+  '2026-04-19':[
+    {id:'j1',time:'17:10',timeEnd:'17:30',cat:'transport',title:'咪爸牛抵達濟州機場 ✈️',location:'제주국제공항',note:'高雄出發 (13:40-17:10)\n入境、拿行李',budget:0,budgetCur:'TWD',who:'parents'},
+    {id:'j2',time:'17:30',timeEnd:'19:00',cat:'transport',title:'姊姊抵達濟州機場 ✈️',location:'제주국제공항',note:'桃園出發 (14:25-17:30)\nIT655',budget:0,budgetCur:'TWD',who:'sis'},
+    {id:'j3',time:'19:00',timeEnd:'20:30',cat:'transport',title:'全員會合 · 取租車 🚗',location:'樂天租車 濟州知店',note:'Gate 5 搭乘接駁車\n記得帶護照/駕照正本/預約證明',budget:150000,budgetCur:'KRW',who:'all'},
+    {id:'j4',time:'20:30',timeEnd:'22:00',cat:'food',title:'晚餐：宇進解酒湯 🍲',location:'우진해장국',note:'排隊約 60 分鐘\n超人氣排骨湯！',budget:50000,budgetCur:'KRW',who:'all'}
+  ],
+  '2026-04-20':[
+    {id:'j5',time:'09:30',timeEnd:'12:00',cat:'sightseeing',title:'山茶花之丘 🌸',location:'카멜리아힐',note:'冬日必看山茶花\n夢幻花園景',budget:10000,budgetCur:'KRW',who:'all'},
+    {id:'j6',time:'12:00',timeEnd:'13:30',cat:'food',title:'午餐：熟成到 🐷',location:'숙성도 중문점',note:'豬肉超級嫩！\n一人一份',budget:70000,budgetCur:'KRW',who:'all'},
+    {id:'j7',time:'14:30',timeEnd:'17:00',cat:'sightseeing',title:'Gamttanam 橘子採摘 🍊',location:'감따남',note:'拍照非常美\n採橘子體驗！',budget:30000,budgetCur:'KRW',who:'all'},
+    {id:'j8',time:'17:30',timeEnd:'',cat:'hotel',title:'入住西歸浦 Hotel Run 🏨',location:'Hotel Run 西歸浦',note:'4/19-22 三晚\n可能需要押金',budget:0,budgetCur:'TWD',who:'all'}
+  ],
+  '2026-04-21':[
+    {id:'j9',time:'10:30',timeEnd:'14:30',cat:'sightseeing',title:'牛島環島遊 🏝️',location:'우도',note:'租三輪車環島\n拍海景超美！',budget:50000,budgetCur:'KRW',who:'all'},
+    {id:'j10',time:'15:00',timeEnd:'17:00',cat:'sightseeing',title:'城山日出峰 ⛰️',location:'성산일출봉',note:'UNESCO世界遺產\n爬上去看壯觀風景',budget:10000,budgetCur:'KRW',who:'all'}
+  ],
+  '2026-04-22':[
+    {id:'j11',time:'09:30',timeEnd:'12:00',cat:'sightseeing',title:'史努比花園 🐶',location:'스누피가든',note:'Snoopy Garden\n超可愛打卡點！',budget:17000,budgetCur:'KRW',who:'all'},
+    {id:'j12',time:'13:00',timeEnd:'',cat:'hotel',title:'姊姊轉住 The Jade 🏨',location:'The Jade Hotel 濟州',note:'4/22-23 一晚',budget:0,budgetCur:'TWD',who:'sis'},
+    {id:'j13',time:'14:00',timeEnd:'',cat:'hotel',title:'咪爸牛繼續住 Hotel Run',location:'Hotel Run 西歸浦',note:'4/22 最後一晚',budget:0,budgetCur:'TWD',who:'parents'}
+  ],
+  '2026-04-23':[
+    {id:'j14',time:'08:30',timeEnd:'',cat:'transport',title:'姊姊返台 ✈️',location:'제주국제공항',note:'IT655 航班\n平安回家！',budget:0,budgetCur:'TWD',who:'sis'}
+  ],
+  '2026-04-24':[
+    {id:'j15',time:'10:00',timeEnd:'13:00',cat:'shopping',title:'東門市場買伴手禮 🛍️',location:'동문시장',note:'買橘子、黑豬肉、蜂蜜\n熱門伴手禮集中地',budget:100000,budgetCur:'KRW',who:'parents'},
+    {id:'j16',time:'14:00',timeEnd:'',cat:'hotel',title:'入住 Gloucester Hotel 🏨',location:'Gloucester Hotel 濟州市',note:'4/24-25 最後一晚',budget:0,budgetCur:'TWD',who:'parents'}
+  ],
+  '2026-04-25':[
+    {id:'j17',time:'11:15',timeEnd:'',cat:'transport',title:'咪爸牛返台 ✈️',location:'제주국제공항',note:'回高雄\n別忘記機場退稅！',budget:0,budgetCur:'TWD',who:'parents'}
+  ]
+};
+
+const SEED_TODOS=[
+  {id:'tt1',text:'機票確認 (咪爸牛 高雄↔濟州)',done:true,order:0,note:'4/19 出發 4/25 回',link:'',linkLabel:''},
+  {id:'tt2',text:'機票確認 (姊姊 桃園↔濟州)',done:true,order:1,note:'IT655 4/19 出發 4/23 回',link:'',linkLabel:''},
+  {id:'tt3',text:'住宿確認 Hotel Run (4/19-22)',done:true,order:2,note:'西歸浦，三晚',link:'',linkLabel:''},
+  {id:'tt4',text:'住宿確認 The Jade (姊4/22-23)',done:false,order:3,note:'姊姊單獨住一晚',link:'',linkLabel:''},
+  {id:'tt5',text:'住宿確認 Gloucester (4/24-25)',done:false,order:4,note:'咪爸牛最後一晚',link:'',linkLabel:''},
+  {id:'tt6',text:'樂天租車預約金繳付',done:true,order:5,note:'已付 150,000 KRW (妹妹代付)',link:'',linkLabel:''},
+  {id:'tt7',text:'帶駕照正本 (妹妹)',done:false,order:6,note:'租車時必帶！',link:'',linkLabel:''},
+  {id:'tt8',text:'換韓幣現金',done:false,order:7,note:'建議台灣先換或抵達後機場換',link:'',linkLabel:''},
+  {id:'tt9',text:'購買旅遊不便險',done:false,order:8,note:'建議全員投保',link:'',linkLabel:''},
+  {id:'tt10',text:'下載 Naver Map 導航',done:false,order:9,note:'韓國用 Naver Map 比 Google 準',link:'https://map.naver.com',linkLabel:'Naver Map'},
+  {id:'tt11',text:'訂史努比花園門票',done:false,order:10,note:'建議提前購買避免現場排隊',link:'https://www.snoopygarden.com',linkLabel:'官方網站'},
+  {id:'tt12',text:'帶護照（全員）',done:false,order:11,note:'入境必備！',link:'',linkLabel:''}
+];
+
+const SEED_EX=[
+  {id:'je1',title:'咪爸牛來回機票',amount:0,currency:'TWD',source:'pre',createdAt:1000,fromItinerary:false},
+  {id:'je2',title:'姊姊來回機票 IT655',amount:0,currency:'TWD',source:'pre',createdAt:1001,fromItinerary:false},
+  {id:'je3',title:'樂天租車預約金',amount:150000,currency:'KRW',source:'pre',createdAt:1002,fromItinerary:false}
+];
+
+let currentTab='itinerary', selectedDate='2026-04-19', expFilter='all';
+let appData={itinerary:{},todos:[],expenses:[]};
+let dragSrcIdx=null;
+
+const $=id=>document.getElementById(id);
+function setMsg(m){$('ld-msg').textContent=m;}
+function setSyncState(s,t){$('sync-dot').className='sync-dot '+s;$('sync-text').textContent=t;}
+
+function showApp(){
+  $('loading-screen').style.display='none';
+  $('main-header').style.display='';
+  $('main-nav').style.display='';
+  $('fab').style.display='flex';
+  setSyncState('online','已同步');
+  render();
+}
+function showError(msg){
+  const e=$('ld-error');e.textContent=msg;e.classList.add('show');
+}
+
+async function seedIfEmpty(){
+  setMsg('檢查資料庫...');
+  const itSnap=await getDocs(collection(db,'jeju_itinerary'));
+  if(itSnap.empty){
+    setMsg('寫入行程資料...');
+    const b=writeBatch(db);
+    for(const [date,evs] of Object.entries(SEED_IT))
+      for(const ev of evs) b.set(doc(db,'jeju_itinerary',ev.id),{...ev,date,createdAt:Date.now()});
+    await b.commit();
+  }
+  const tdSnap=await getDocs(collection(db,'jeju_todos'));
+  if(tdSnap.empty){
+    setMsg('寫入待辦清單...');
+    const b=writeBatch(db);
+    for(const t of SEED_TODOS) b.set(doc(db,'jeju_todos',t.id),t);
+    await b.commit();
+  }
+  const exSnap=await getDocs(collection(db,'jeju_expenses'));
+  if(exSnap.empty){
+    setMsg('寫入花費記錄...');
+    const b=writeBatch(db);
+    for(const e of SEED_EX) b.set(doc(db,'jeju_expenses',e.id),e);
+    await b.commit();
+  }
+}
+
+function startListeners(){
+  setMsg('載入資料...');
+  let itDone=false,tdDone=false,exDone=false;
+  function ready(){if(itDone&&tdDone&&exDone)showApp();}
+  onSnapshot(collection(db,'jeju_itinerary'),snap=>{
+    appData.itinerary={};
+    snap.forEach(d=>{const ev=d.data();if(!appData.itinerary[ev.date])appData.itinerary[ev.date]=[];appData.itinerary[ev.date].push(ev);});
+    if(!itDone){itDone=true;ready();}else{setSyncState('online','已同步');render();}
+  },err=>{setSyncState('error','同步失敗');console.error(err);});
+  onSnapshot(collection(db,'jeju_todos'),snap=>{
+    appData.todos=[];snap.forEach(d=>appData.todos.push(d.data()));
+    appData.todos.sort((a,b)=>(a.order||0)-(b.order||0));
+    if(!tdDone){tdDone=true;ready();}else{setSyncState('online','已同步');render();}
+  },err=>{setSyncState('error','同步失敗');console.error(err);});
+  onSnapshot(collection(db,'jeju_expenses'),snap=>{
+    appData.expenses=[];snap.forEach(d=>appData.expenses.push(d.data()));
+    appData.expenses.sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));
+    if(!exDone){exDone=true;ready();}else{setSyncState('online','已同步');render();}
+  },err=>{setSyncState('error','同步失敗');console.error(err);});
+}
+
+async function boot(){
+  try{await seedIfEmpty();startListeners();}
+  catch(e){console.error(e);showError('Firebase 連線失敗：'+e.message+'\n\n請確認 Firestore 已開啟測試模式');}
+}
+boot();
+
+// ── Helpers ──
+const CAT_META={
+  food:{icon:'🍖',label:'用餐',cls:'cat-food'},
+  transport:{icon:'🚗',label:'交通',cls:'cat-transport'},
+  shopping:{icon:'🛍️',label:'購物',cls:'cat-shopping'},
+  sightseeing:{icon:'🏝️',label:'觀光',cls:'cat-sightseeing'},
+  hotel:{icon:'🏨',label:'住宿',cls:'cat-hotel'},
+  other:{icon:'📌',label:'其他',cls:'cat-other'}
+};
+const WHO_META={
+  all:{label:'全員',cls:'who-all'},
+  sis:{label:'姊姊',cls:'who-sis'},
+  parents:{label:'妹爸媽',cls:'who-parents'}
+};
+
+function catBadge(cat){
+  const m=CAT_META[cat]||CAT_META.other;
+  return `<span class="cat-badge ${m.cls}">${m.icon} ${m.label}</span>`;
+}
+function whoBadge(who){
+  const m=WHO_META[who]||WHO_META.all;
+  return `<span class="who-badge ${m.cls}">👥 ${m.label}</span>`;
+}
+function budgetStr(budget,cur){
+  if(!budget||+budget===0)return '';
+  const isKrw=cur==='KRW';
+  const twd=isKrw?Math.round(budget*KRW_TO_TWD):budget;
+  return `<div class="tl-budget">💰 ${cur} ${(+budget).toLocaleString()}${isKrw?` ≈ NT$${twd.toLocaleString()}`:''}</div>`;
+}
+function esc(s){return s?s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'):''}
+
+// ── Render ──
+window.switchTab=function(tab){
+  currentTab=tab;
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  $('nav-'+tab).classList.add('active');
+  $('fab').style.display=(tab==='exchange'||tab==='notes')?'none':'flex';
+  render();
+};
+window.setDate=d=>{selectedDate=d;render();};
+window.setExpFilter=f=>{expFilter=f;render();};
+
+window.render=function(){
+  const el=$('app-content');el.innerHTML='';
+  if(currentTab==='itinerary')el.appendChild(buildItinerary());
+  else if(currentTab==='todo')el.appendChild(buildTodo());
+  else if(currentTab==='notes')el.appendChild(buildNotes());
+  else if(currentTab==='expenses')el.appendChild(buildExpenses());
+  else el.appendChild(buildExchange());
+};
+
+const DAY_META={
+  '2026-04-19':{icon:'✈️',theme:'抵達日 · 全員會合'},
+  '2026-04-20':{icon:'🌸',theme:'花海橘園'},
+  '2026-04-21':{icon:'🏝️',theme:'牛島 · 城山'},
+  '2026-04-22':{icon:'🐶',theme:'史努比花園'},
+  '2026-04-23':{icon:'🛫',theme:'姊姊返台日'},
+  '2026-04-24':{icon:'🛍️',theme:'東門市場掃貨'},
+  '2026-04-25':{icon:'🏠',theme:'返台日'}
+};
+
+function buildItinerary(){
+  const wrap=document.createElement('div');
+  const DATES=[
+    {val:'2026-04-19',day:'DAY 1',label:'4/19 日'},
+    {val:'2026-04-20',day:'DAY 2',label:'4/20 一'},
+    {val:'2026-04-21',day:'DAY 3',label:'4/21 二'},
+    {val:'2026-04-22',day:'DAY 4',label:'4/22 三'},
+    {val:'2026-04-23',day:'DAY 5',label:'4/23 四'},
+    {val:'2026-04-24',day:'DAY 6',label:'4/24 五'},
+    {val:'2026-04-25',day:'DAY 7',label:'4/25 六'}
+  ];
+  let tabs='<div class="date-tabs">';
+  DATES.forEach(d=>{tabs+=`<div class="date-tab ${d.val===selectedDate?'active':''}" onclick="setDate('${d.val}')"><span class="dl">${d.day}</span><span class="dd">${d.label}</span></div>`;});
+  tabs+='</div>';
+
+  const meta=DAY_META[selectedDate]||{icon:'📍',theme:'行程'};
+  const events=(appData.itinerary[selectedDate]||[]).slice().sort((a,b)=>a.time.localeCompare(b.time));
+
+  let dayBudgetTwd=0;
+  events.forEach(ev=>{if(ev.budget&&+ev.budget>0){dayBudgetTwd+=ev.budgetCur==='KRW'?Math.round(+ev.budget*KRW_TO_TWD):+ev.budget;}});
+  const budgetNote=dayBudgetTwd>0?` · 預計 NT$${dayBudgetTwd.toLocaleString()}`:'';
+
+  const banner=`<div class="day-banner"><div class="day-banner-txt"><div class="day-banner-title">${meta.icon} ${meta.theme}</div><div class="day-banner-sub">${selectedDate.replace('2026-','').replace('-','/')} · ${events.length} 個行程${budgetNote}</div></div><div class="day-banner-icons"><span>🍊</span><span>🚗</span><span>🌊</span></div></div>`;
+
+  let tl='<div class="timeline">';
+  if(!events.length)tl+='<div class="empty-state"><span class="empty-state-icon">🍊</span>尚無行程，點擊右下角 + 新增</div>';
+  events.forEach((ev,i)=>{
+    const timeEnd=ev.timeEnd?`<div class="tl-time-end">→${ev.timeEnd}</div>`:'';
+    const loc=ev.location?`<button class="loc-chip" onclick="openGoogleMaps('${esc(ev.location)}')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>${esc(ev.location)}</button>`:'';
+    const noteHtml=ev.note?`<div class="tl-note">${esc(ev.note)}</div>`:'';
+    const budgHtml=budgetStr(ev.budget,ev.budgetCur);
+    const whoHtml=ev.who?whoBadge(ev.who):'';
+    tl+=`<div class="tl-item" style="animation-delay:${i*0.05}s">
+      <div class="tl-time-col"><div class="tl-time-start">${ev.time}</div>${timeEnd}</div>
+      <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-card">
+        <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-bottom:2px">${catBadge(ev.cat)}${whoHtml}</div>
+        <div class="tl-card-header">
+          <div class="tl-title">${esc(ev.title)}</div>
+          <div class="tl-actions">
+            <button class="tl-btn" onclick="openEditItinerary('${ev.id}')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg></button>
+            <button class="tl-btn del" onclick="deleteItinerary('${ev.id}')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+          </div>
+        </div>
+        ${loc}${budgHtml}${noteHtml}
+      </div>
+    </div>`;
+  });
+  tl+='</div>';
+  wrap.innerHTML=tabs+banner+tl;
+  return wrap;
+}
+
+function buildTodo(){
+  const wrap=document.createElement('div');wrap.className='sec-pad';
+  const done=appData.todos.filter(t=>t.done).length,total=appData.todos.length,pct=total?Math.round(done/total*100):0;
+  let html=`
+  <div class="sec-hero" style="border-radius:12px;border:1.5px solid var(--paper2);margin-bottom:12px">
+    <div class="sec-hero-icon">☑️</div>
+    <div><div class="sec-hero-title">行前準備清單</div><div class="sec-hero-sub">長按拖曳排序 · 點編輯加備註</div></div>
+  </div>
+  <div class="prog-card">
+    <div class="prog-head"><span class="prog-title">完成進度</span><span class="prog-count">${done} / ${total}</span></div>
+    <div class="prog-bar-bg"><div class="prog-bar-fill" style="width:${pct}%"></div></div>
+    <div class="prog-label">${pct===100?'🎉 全部完成！準備出發濟州啦！':'還剩 '+(total-done)+' 項待完成'}</div>
+  </div>
+  <div class="todo-list" id="todo-list-el">`;
+  appData.todos.forEach((t,i)=>{
+    const noteHtml=t.note?`<div class="todo-note-line">${esc(t.note)}</div>`:'';
+    const linkHtml=t.link?`<a class="todo-link-line" href="${esc(t.link)}" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>${esc(t.linkLabel||t.link)}</a>`:'';
+    html+=`<div class="todo-item" draggable="true" data-idx="${i}" ondragstart="onDragStart(event,${i})" ondragover="onDragOver(event,${i})" ondragend="onDragEnd(event)" ondrop="onDrop(event,${i})">
+      <span class="drag-handle"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"/></svg></span>
+      <input type="checkbox" class="todo-checkbox" ${t.done?'checked':''} onchange="toggleTodo('${t.id}')">
+      <div class="todo-main">
+        <div class="todo-text ${t.done?'done':''}">${esc(t.text)}</div>
+        ${noteHtml}${linkHtml}
+      </div>
+      <button class="todo-edit-btn" onclick="openEditTodo('${t.id}')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg></button>
+      <button class="todo-del-btn" onclick="deleteTodo('${t.id}')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+    </div>`;
+  });
+  html+='</div>';
+  wrap.innerHTML=html;
+  return wrap;
+}
+
+function buildNotes(){
+  const wrap=document.createElement('div');wrap.className='sec-pad';
+  wrap.innerHTML=`
+  <div class="sec-hero" style="border-radius:12px;border:1.5px solid var(--paper2);margin-bottom:12px">
+    <div class="sec-hero-icon">📔</div>
+    <div><div class="sec-hero-title">旅行手帳</div><div class="sec-hero-sub">住宿資訊・提醒事項・小筆記</div></div>
+  </div>
+
+  <div class="notes-card">
+    <div class="notes-card-title"><span class="nc-icon">🏠</span> 住宿資訊</div>
+    <div class="accom-row">
+      <div class="accom-item">
+        <div class="accom-date">4/19－22（三晚）</div>
+        <div class="accom-name">Hotel Run</div>
+        <div class="accom-who">西歸浦 · 全員</div>
+      </div>
+      <div class="accom-item">
+        <div class="accom-date">4/22－23（一晚）</div>
+        <div class="accom-name">The Jade</div>
+        <div class="accom-who">姊姊獨住</div>
+      </div>
+      <div class="accom-item">
+        <div class="accom-date">4/24－25（一晚）</div>
+        <div class="accom-name">Gloucester</div>
+        <div class="accom-who">咪爸牛 · 濟州市</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes-card">
+    <div class="notes-card-title"><span class="nc-icon">⚠️</span> 提醒事項</div>
+    <ul class="remind-list">
+      <li>用餐：一人一餐點規定（請注意！）</li>
+      <li>停車：路邊白線可以停車</li>
+      <li>退稅：機場 5 號櫃檯退稅（記得帶護照）</li>
+      <li>帶護照正本（入境 + 退稅都要用）</li>
+    </ul>
+  </div>
+
+  <div class="notes-card">
+    <div class="notes-card-title"><span class="nc-icon">🍊</span> 濟州島小知識</div>
+    <div class="notes-body">濟州島是韓國最大島嶼，韓語稱「제주도」。
+島上最著名的特產是橘子（감귤），香甜多汁！
+
+✅ 推薦必吃：
+• 黑豬肉（흑돼지）— 濟州特有豬種，比一般豬肉更香
+• 海鮮刺身（회）— 西歸浦港口附近最新鮮
+• 蜂蜜橘子（한라봉）— 回台伴手禮首選
+
+🚗 自駕小提醒：
+• Naver Map 比 Google Map 在韓國更準確
+• 加油站付款可用信用卡
+• 停白線可停車，黃線禁停
+    </div>
+  </div>
+
+  <div class="notes-card">
+    <div class="notes-card-title"><span class="nc-icon">📞</span> 緊急聯絡</div>
+    <div class="notes-body">
+<span class="notes-tag">🚨 韓國報警</span> <strong>112</strong>
+<span class="notes-tag">🚑 韓國救護</span> <strong>119</strong>
+<span class="notes-tag green">🏥 濟州醫療</span> <strong>1339</strong>
+<span class="notes-tag purple">✈️ 樂天租車</span> 預約確認單上</div>
+  </div>
+  `;
+  return wrap;
+}
+
+function buildExpenses(){
+  const wrap=document.createElement('div');
+  let totalTwd=0,totalKrw=0,twdOnly=0;
+  appData.expenses.forEach(e=>{
+    if(e.currency==='TWD'){totalTwd+=+e.amount;twdOnly+=+e.amount;}
+    if(e.currency==='KRW'){totalKrw+=+e.amount;totalTwd+=+e.amount*KRW_TO_TWD;}
+  });
+
+  const filters=[{k:'all',l:'全部'},{k:'pre',l:'🏠 行前'},{k:'trip',l:'🏝️ 出遊'},{k:'plan',l:'🛒 預計'}];
+  let ftabs='<div class="exp-tabs">';
+  filters.forEach(f=>{ftabs+=`<div class="exp-tab ${expFilter===f.k?'active':''}" onclick="setExpFilter('${f.k}')">${f.l}</div>`;});
+  ftabs+='</div>';
+
+  const srcLabel={pre:'🏠 行前開銷',trip:'🏝️ 出遊開銷',plan:'🛒 預計購買'};
+  let filtered=appData.expenses.filter(e=>expFilter==='all'||e.source===expFilter);
+
+  let list='<div class="exp-list">';
+  if(!filtered.length)list+='<div class="empty-state" style="padding:28px 0">此分類沒有花費記錄</div>';
+  [...filtered].reverse().forEach(e=>{
+    const isKrw=e.currency==='KRW';
+    const autoTag=e.fromItinerary?'<span class="exp-auto-tag">行程匯入</span>':'';
+    list+=`<div class="exp-item">
+      <div class="exp-item-l">
+        <div class="exp-item-name">${esc(e.title)}${autoTag}</div>
+        <div class="exp-item-meta"><span class="exp-item-type">${srcLabel[e.source]||'其他'}</span></div>
+      </div>
+      <div class="exp-item-r">
+        <div>
+          <div class="exp-amt ${isKrw?'krw':'twd'}">${e.currency} ${(+e.amount).toLocaleString()}</div>
+          ${isKrw?`<div class="exp-approx">≈ NT$${Math.round(e.amount*KRW_TO_TWD).toLocaleString()}</div>`:''}
+        </div>
+        <button class="exp-del-btn" onclick="deleteExpense('${e.id}')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+      </div>
+    </div>`;
+  });
+  list+='</div><div style="height:14px"></div>';
+
+  wrap.innerHTML=`
+  <div class="sec-hero" style="border-bottom:2px solid var(--paper2)">
+    <div class="sec-hero-icon">💰</div>
+    <div><div class="sec-hero-title">旅費記帳</div><div class="sec-hero-sub">行程預算自動匯入 · KRW↔TWD換算</div></div>
+  </div>
+  <div class="exp-hero">
+    <div class="exp-lbl">預估總花費（台幣換算）</div>
+    <div class="exp-total">NT$ ${Math.round(totalTwd).toLocaleString()}</div>
+    <div class="exp-split">
+      <div class="exp-si"><div class="exp-si-lbl">台幣支出</div><div class="exp-si-val">NT$ ${Math.round(twdOnly).toLocaleString()}</div></div>
+      <div class="exp-si"><div class="exp-si-lbl">韓幣支出</div><div class="exp-si-val">₩ ${Math.round(totalKrw).toLocaleString()}</div></div>
+    </div>
+  </div>
+  ${ftabs}
+  <div class="exp-sec-title">消費明細</div>
+  ${list}`;
+  return wrap;
+}
+
+function buildExchange(){
+  const wrap=document.createElement('div');wrap.className='exch-wrap';
+  wrap.innerHTML=`
+  <div class="sec-hero" style="width:100%;max-width:380px;border-radius:12px;border:1.5px solid var(--paper2)">
+    <div class="sec-hero-icon">🧮</div>
+    <div><div class="sec-hero-title">匯率換算</div><div class="sec-hero-sub">結帳即時換算</div></div>
+  </div>
+  <div class="exch-card">
+    <div class="exch-hdr">
+      <div class="exch-hdr-title">韓幣 ⇄ 台幣</div>
+      <div class="exch-hdr-sub">參考匯率：1,000 KRW ≈ 23 TWD</div>
+    </div>
+    <div class="exch-body">
+      <div class="calc-field"><label>韓幣 KRW</label><div class="calc-wrap"><span class="calc-cur">₩</span><input type="number" id="calc-krw" class="calc-in" placeholder="0" oninput="calcEx('krw')"></div></div>
+      <div class="exch-div"><div class="exch-arrow"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg></div></div>
+      <div class="calc-field"><label>台幣 TWD</label><div class="calc-wrap"><span class="calc-cur">NT$</span><input type="number" id="calc-twd" class="calc-in res" placeholder="0" oninput="calcEx('twd')"></div></div>
+    </div>
+  </div>
+  <div class="exch-tip">🍖 黑豬肉套餐、橘子採摘費<br>輸入韓幣即時換算台幣</div>`;
+  return wrap;
+}
+
+// ── FAB & Modal control ──
+window.handleFabClick=function(){
+  if(currentTab==='itinerary')openItineraryModal();
+  else if(currentTab==='expenses')openExpenseModal();
+  else if(currentTab==='todo')openTodoModal();
+};
+window.handleOverlayClick=e=>{if(e.target===$('modal-overlay'))closeModal();};
+function openM(id){$('modal-overlay').classList.add('show');$(id).classList.add('show');}
+window.closeModal=function(){$('modal-overlay').classList.remove('show');['itinerary-modal','todo-modal','expense-modal'].forEach(id=>$(id).classList.remove('show'));};
+
+// ── Category selector ──
+window.selectCat=function(cat){
+  $('it-cat').value=cat;
+  document.querySelectorAll('.cat-pill').forEach(p=>{
+    p.className='cat-pill';
+    if(p.dataset.cat===cat)p.classList.add('sel-'+cat);
+  });
+};
+
+// ── Budget preview ──
+window.updateBudgetPreview=function(){
+  const v=parseFloat($('it-budget').value);
+  const cur=$('it-budget-cur').value;
+  const el=$('budget-preview');
+  if(!v||isNaN(v)){el.innerHTML='換算：—';return;}
+  if(cur==='KRW')el.innerHTML=`換算：<strong>NT$${Math.round(v*KRW_TO_TWD).toLocaleString()}</strong>`;
+  else el.innerHTML=`換算：<strong>₩${Math.round(v/KRW_TO_TWD).toLocaleString()}</strong>`;
+};
+
+// ── Itinerary CRUD ──
+function openItineraryModal(editId=null){
+  $('it-edit-id').value=editId||'';
+  $('it-modal-title').textContent=editId?'編輯行程':'新增行程';
+  if(editId){
+    let ev=null;
+    Object.values(appData.itinerary).forEach(evs=>evs.forEach(e=>{if(e.id===editId)ev=e;}));
+    if(ev){
+      selectCat(ev.cat||'other');
+      $('it-title').value=ev.title;
+      $('it-time-start').value=ev.time;
+      $('it-time-end').value=ev.timeEnd||'';
+      $('it-location').value=ev.location||'';
+      $('it-note').value=ev.note||'';
+      $('it-budget').value=ev.budget||'';
+      $('it-budget-cur').value=ev.budgetCur||'KRW';
+      updateBudgetPreview();
+    }
+  } else {
+    selectCat('other');
+    $('it-title').value='';$('it-time-start').value='10:00';$('it-time-end').value='';
+    $('it-location').value='';$('it-note').value='';$('it-budget').value='';
+    $('it-budget-cur').value='KRW';$('budget-preview').innerHTML='換算：—';
+  }
+  openM('itinerary-modal');
+  setTimeout(()=>$('it-title').focus(),150);
+}
+window.openEditItinerary=id=>openItineraryModal(id);
+
+window.saveItinerary=async function(){
+  const id=$('it-edit-id').value;
+  const title=$('it-title').value.trim();
+  const time=$('it-time-start').value;
+  if(!title||!time){alert('請填寫標題與開始時間');return;}
+  const cat=$('it-cat').value;
+  const timeEnd=$('it-time-end').value;
+  const location=$('it-location').value.trim();
+  const note=$('it-note').value.trim();
+  const budget=parseFloat($('it-budget').value)||0;
+  const budgetCur=$('it-budget-cur').value;
+
+  setSyncState('saving','儲存中...');
+  const docId=id||('j'+Date.now());
+  const payload={id:docId,cat,title,time,timeEnd,location,note,budget,budgetCur,date:selectedDate,who:'all',createdAt:Date.now()};
+  await setDoc(doc(db,'jeju_itinerary',docId),payload);
+
+  if(budget>0){
+    const exId='jex_it_'+docId;
+    await setDoc(doc(db,'jeju_expenses',exId),{
+      id:exId,title,amount:budget,currency:budgetCur,
+      source:'trip',createdAt:Date.now()+1,fromItinerary:true,itineraryId:docId
+    });
+  } else {
+    try{ await deleteDoc(doc(db,'jeju_expenses','jex_it_'+docId)); }catch(e){}
+  }
+  closeModal();
+};
+
+window.deleteItinerary=async function(id){
+  if(!confirm('確定要刪除？'))return;
+  setSyncState('saving','刪除中...');
+  await deleteDoc(doc(db,'jeju_itinerary',id));
+  try{ await deleteDoc(doc(db,'jeju_expenses','jex_it_'+id)); }catch(e){}
+};
+
+// ── Todo CRUD ──
+function openTodoModal(editId=null){
+  $('todo-edit-id').value=editId||'';
+  $('todo-modal-title').textContent=editId?'編輯待辦':'新增待辦';
+  if(editId){
+    const t=appData.todos.find(t=>t.id===editId);
+    if(t){
+      $('todo-text-input').value=t.text;
+      $('todo-note-input').value=t.note||'';
+      $('todo-link-input').value=t.link||'';
+      $('todo-link-label-input').value=t.linkLabel||'';
+    }
+  } else {
+    $('todo-text-input').value='';$('todo-note-input').value='';
+    $('todo-link-input').value='';$('todo-link-label-input').value='';
+  }
+  openM('todo-modal');
+  setTimeout(()=>$('todo-text-input').focus(),150);
+}
+window.openEditTodo=id=>openTodoModal(id);
+
+window.saveTodo=async function(){
+  const id=$('todo-edit-id').value;
+  const text=$('todo-text-input').value.trim();
+  if(!text)return;
+  setSyncState('saving','儲存中...');
+  const docId=id||('tt'+Date.now());
+  const order=id?appData.todos.find(t=>t.id===id)?.order??appData.todos.length:appData.todos.length;
+  const done=id?appData.todos.find(t=>t.id===id)?.done??false:false;
+  await setDoc(doc(db,'jeju_todos',docId),{
+    id:docId,text,done,order,
+    note:$('todo-note-input').value.trim(),
+    link:$('todo-link-input').value.trim(),
+    linkLabel:$('todo-link-label-input').value.trim()
+  });
+  closeModal();
+};
+window.toggleTodo=async function(id){
+  const t=appData.todos.find(t=>t.id===id);
+  if(!t)return;
+  setSyncState('saving','更新中...');
+  await updateDoc(doc(db,'jeju_todos',id),{done:!t.done});
+};
+window.deleteTodo=async function(id){
+  setSyncState('saving','刪除中...');
+  await deleteDoc(doc(db,'jeju_todos',id));
+};
+
+// ── Drag-to-sort ──
+window.onDragStart=function(e,idx){
+  dragSrcIdx=idx;e.currentTarget.classList.add('dragging');e.dataTransfer.effectAllowed='move';
+};
+window.onDragOver=function(e,idx){
+  e.preventDefault();e.dataTransfer.dropEffect='move';
+  document.querySelectorAll('.todo-item').forEach((el,i)=>{el.classList.toggle('drag-over',i===idx&&i!==dragSrcIdx);});
+};
+window.onDragEnd=function(e){
+  e.currentTarget.classList.remove('dragging');
+  document.querySelectorAll('.todo-item').forEach(el=>el.classList.remove('drag-over'));
+};
+window.onDrop=async function(e,dropIdx){
+  e.preventDefault();
+  if(dragSrcIdx===null||dragSrcIdx===dropIdx)return;
+  const reordered=[...appData.todos];
+  const [moved]=reordered.splice(dragSrcIdx,1);
+  reordered.splice(dropIdx,0,moved);
+  setSyncState('saving','排序中...');
+  const b=writeBatch(db);
+  reordered.forEach((t,i)=>b.update(doc(db,'jeju_todos',t.id),{order:i}));
+  await b.commit();
+  dragSrcIdx=null;
+};
+
+// ── Expenses ──
+function openExpenseModal(){
+  $('ex-title').value='';$('ex-amount').value='';$('ex-cur').value='KRW';$('ex-source').value='trip';
+  openM('expense-modal');
+}
+window.saveExpense=async function(){
+  const title=$('ex-title').value.trim();
+  const amount=$('ex-amount').value;
+  const currency=$('ex-cur').value;
+  const source=$('ex-source').value;
+  if(!title||!amount){alert('請填寫項目與金額');return;}
+  setSyncState('saving','儲存中...');
+  const id='je'+Date.now();
+  await setDoc(doc(db,'jeju_expenses',id),{id,title,amount:+amount,currency,source,createdAt:Date.now(),fromItinerary:false});
+  closeModal();
+};
+window.deleteExpense=async function(id){
+  if(!confirm('確定要刪除？'))return;
+  setSyncState('saving','刪除中...');
+  await deleteDoc(doc(db,'jeju_expenses',id));
+};
+
+// ── Shared ──
+window.openGoogleMaps=loc=>{if(loc)window.open('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(loc),'_blank');};
+window.calcEx=function(src){
+  const krw=$('calc-krw'),twd=$('calc-twd');
+  if(src==='krw'){const v=parseFloat(krw.value);twd.value=isNaN(v)?'':Math.round(v*KRW_TO_TWD);}
+  else{const v=parseFloat(twd.value);krw.value=isNaN(v)?'':Math.round(v/KRW_TO_TWD);}
+};
+</script>
+</body>
+</html>
