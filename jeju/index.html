@@ -261,6 +261,10 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--cream);color:var(--i
 .fi-icon svg{width:13px;height:13px;}
 .fi-icon-wrap .fi{padding-left:32px;}
 .cat-selector{display:flex;flex-wrap:wrap;gap:7px;}
+.who-pill{display:flex;align-items:center;gap:5px;padding:6px 14px;border-radius:20px;border:1.5px solid var(--paper2);background:var(--white);font-size:0.78rem;font-weight:700;cursor:pointer;transition:all 0.15s;color:var(--ink3);}
+.who-pill.active{background:var(--jeju);border-color:var(--jeju);color:#fff;box-shadow:0 2px 8px rgba(232,101,10,0.25);}
+.who-pill[data-who="sis"].active{background:var(--purple);border-color:var(--purple);}
+.who-pill[data-who="parents"].active{background:var(--teal);border-color:var(--teal);}
 .cat-pill{display:flex;align-items:center;gap:5px;padding:6px 12px;border-radius:20px;border:1.5px solid var(--paper2);background:var(--white);font-size:0.75rem;font-weight:700;cursor:pointer;transition:all 0.15s;color:var(--ink3);}
 .cat-pill.sel-food{background:rgba(212,122,10,0.12);border-color:var(--amber);color:var(--amber2);}
 .cat-pill.sel-transport{background:rgba(26,122,94,0.12);border-color:var(--teal);color:var(--teal2);}
@@ -399,6 +403,15 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--cream);color:var(--i
         <div class="cat-pill sel-other" data-cat="other" onclick="selectCat('other')">📌 其他</div>
       </div>
       <input type="hidden" id="it-cat" value="other">
+    </div>
+    <div class="fg">
+      <label class="fl">參與成員</label>
+      <div style="display:flex;gap:8px;">
+        <div class="who-pill active" data-who="all" onclick="selectWho('all')">👥 全員</div>
+        <div class="who-pill" data-who="sis" onclick="selectWho('sis')">🙋 姊姊</div>
+        <div class="who-pill" data-who="parents" onclick="selectWho('parents')">👨‍👩‍👧 咪爸妹</div>
+      </div>
+      <input type="hidden" id="it-who" value="all">
     </div>
     <div class="fg">
       <label class="fl">標題</label>
@@ -694,7 +707,7 @@ const CAT_META={
 const WHO_META={
   all:{label:'全員',cls:'who-all'},
   sis:{label:'姊姊',cls:'who-sis'},
-  parents:{label:'妹爸媽',cls:'who-parents'}
+  parents:{label:'咪爸妹',cls:'who-parents'}
 };
 
 function catBadge(cat){
@@ -988,7 +1001,13 @@ window.handleOverlayClick=e=>{if(e.target===$('modal-overlay'))closeModal();};
 function openM(id){$('modal-overlay').classList.add('show');$(id).classList.add('show');}
 window.closeModal=function(){$('modal-overlay').classList.remove('show');['itinerary-modal','todo-modal','expense-modal'].forEach(id=>$(id).classList.remove('show'));};
 
-// ── Category selector ──
+// ── Who selector ──
+window.selectWho=function(who){
+  $('it-who').value=who;
+  document.querySelectorAll('.who-pill').forEach(p=>{
+    p.classList.toggle('active',p.dataset.who===who);
+  });
+};
 window.selectCat=function(cat){
   $('it-cat').value=cat;
   document.querySelectorAll('.cat-pill').forEach(p=>{
@@ -1022,6 +1041,7 @@ function openItineraryModal(editId=null){
     Object.values(appData.itinerary).forEach(evs=>evs.forEach(e=>{if(e.id===editId)ev=e;}));
     if(ev){
       selectCat(ev.cat||'other');
+      selectWho(ev.who||'all');
       $('it-title').value=ev.title;
       $('it-time-start').value=ev.time;
       $('it-time-end').value=ev.timeEnd||'';
@@ -1038,6 +1058,7 @@ function openItineraryModal(editId=null){
     }
   } else {
     selectCat('other');
+    selectWho('all');
     $('it-title').value='';$('it-time-start').value='10:00';$('it-time-end').value='';
     $('it-location').value='';$('it-note').value='';$('it-budget').value='';
     $('it-budget-cur').value='KRW';$('budget-preview').innerHTML='換算：—';
@@ -1077,7 +1098,7 @@ window.saveItinerary=async function(){
     prog.textContent='';
   }
 
-  const payload={id:docId,cat,title,time,timeEnd,location,note,budget,budgetCur,date:selectedDate,who:'all',photos:uploadedPhotos,createdAt:Date.now()};
+  const payload={id:docId,cat,title,time,timeEnd,location,note,budget,budgetCur,date:selectedDate,who:$('it-who').value||'all',photos:uploadedPhotos,createdAt:Date.now()};
   await setDoc(doc(db,'jeju_itinerary',docId),payload);
 
   if(budget>0){
