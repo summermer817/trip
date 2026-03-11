@@ -443,7 +443,8 @@ option{background:#faf6ee;color:#2c1810;}
   <!-- Expense Modal -->
   <div class="modal" id="expense-modal" onclick="event.stopPropagation()">
     <div class="m-handle"></div>
-    <div class="m-title">新增花費</div>
+    <div class="m-title" id="ex-modal-title">新增花費</div>
+    <input type="hidden" id="ex-edit-id">
     <div class="fg">
       <label class="fl">項目名稱</label>
       <input type="text" id="ex-title" placeholder="例：晚餐-麥文記麵家" class="fi">
@@ -871,15 +872,16 @@ function buildExpenses(){
     const isHkd=e.currency==='HKD';
     const autoTag=e.fromItinerary?'<span class="exp-auto-tag">行程匯入</span>':'';
     list+=`<div class="exp-item">
-      <div class="exp-item-l">
+      <div class="exp-item-l" style="cursor:pointer" onclick="openEditExpense('${e.id}')">
         <div class="exp-item-name">${esc(e.title)}${autoTag}</div>
         <div class="exp-item-meta"><span class="exp-item-type">${srcLabel[e.source]||'其他'}</span></div>
       </div>
       <div class="exp-item-r">
-        <div>
+        <div style="cursor:pointer" onclick="openEditExpense('${e.id}')">
           <div class="exp-amt ${isHkd?'hkd':'twd'}">${e.currency} ${(+e.amount).toLocaleString()}</div>
           ${isHkd?`<div class="exp-approx">≈ NT$${Math.round(e.amount*RATE).toLocaleString()}</div>`:''}
         </div>
+        <button class="tl-btn" onclick="openEditExpense('${e.id}')" title="編輯"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg></button>
         <button class="exp-del-btn" onclick="deleteExpense('${e.id}')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
       </div>
     </div>`;
@@ -1098,19 +1100,44 @@ window.onDrop=async function(e,dropIdx){
 };
 
 // ── Expenses ──
-function openExpenseModal(){
-  $('ex-title').value='';$('ex-amount').value='';$('ex-cur').value='HKD';$('ex-source').value='trip';
+function openExpenseModal(editId=null){
+  $('ex-edit-id').value = editId||'';
+  $('ex-modal-title').textContent = editId ? '編輯花費' : '新增花費';
+  if(editId){
+    const e = appData.expenses.find(e=>e.id===editId);
+    if(e){
+      $('ex-title').value   = e.title;
+      $('ex-source').value  = e.source||'trip';
+      $('ex-cur').value     = e.currency||'HKD';
+      $('ex-amount').value  = e.amount;
+    }
+  } else {
+    $('ex-title').value=''; $('ex-amount').value='';
+    $('ex-cur').value='HKD'; $('ex-source').value='trip';
+  }
   openM('expense-modal');
+  setTimeout(()=>$('ex-title').focus(),150);
 }
+window.openEditExpense = id => openExpenseModal(id);
+
 window.saveExpense=async function(){
-  const title=$('ex-title').value.trim();
-  const amount=$('ex-amount').value;
-  const currency=$('ex-cur').value;
-  const source=$('ex-source').value;
+  const editId  = $('ex-edit-id').value;
+  const title   = $('ex-title').value.trim();
+  const amount  = $('ex-amount').value;
+  const currency= $('ex-cur').value;
+  const source  = $('ex-source').value;
   if(!title||!amount){alert('請填寫項目與金額');return;}
   setSyncState('saving','儲存中...');
-  const id='e'+Date.now();
-  await setDoc(doc(db,'expenses',id),{id,title,amount:+amount,currency,source,createdAt:Date.now(),fromItinerary:false});
+  if(editId){
+    // Preserve original fields (fromItinerary, createdAt, etc.)
+    const orig = appData.expenses.find(e=>e.id===editId)||{};
+    await setDoc(doc(db,'expenses',editId),{
+      ...orig, title, amount:+amount, currency, source
+    });
+  } else {
+    const id='e'+Date.now();
+    await setDoc(doc(db,'expenses',id),{id,title,amount:+amount,currency,source,createdAt:Date.now(),fromItinerary:false});
+  }
   closeModal();
 };
 window.deleteExpense=async function(id){
