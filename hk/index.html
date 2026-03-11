@@ -495,28 +495,104 @@ const RATE = 4.1;
 // ── Seed data ──
 const SEED_IT = {
   '2026-04-02':[
-    {id:'1',time:'13:40',timeEnd:'',cat:'transport',title:'出發飛往香港 ✈️',location:'桃園國際機場第一航廈',note:'UO111\n記得帶護照與印好的港簽！',budget:0,budgetCur:'TWD'},
-    {id:'2',time:'15:35',timeEnd:'16:30',cat:'transport',title:'抵達香港國際機場',location:'香港國際機場',note:'入境、拿行李\n買八達通或加值手機八達通',budget:0,budgetCur:'TWD'},
-    {id:'3',time:'16:30',timeEnd:'17:30',cat:'transport',title:'搭城巴 A22 前往市區',location:'香港機場城巴A22巴士站',note:'在「上海街，佐敦道」站下車',budget:33,budgetCur:'HKD'},
-    {id:'4',time:'17:30',timeEnd:'',cat:'hotel',title:'入住 LongWin Hostel',location:'長榮旅舍 佐敦',note:'佐敦站附近，放好行李休息一下',budget:0,budgetCur:'TWD'},
-    {id:'5',time:'18:30',timeEnd:'21:00',cat:'food',title:'佐敦/油麻地晚餐 🍜',location:'廟街 油麻地',note:'推薦：澳洲牛奶公司、麥文記麵家\n吃飽逛廟街夜市',budget:120,budgetCur:'HKD'}
+    {id:'1', time:'13:40', timeEnd:'15:35', cat:'transport', title:'出發 → 抵達香港 ✈️',
+     location:'桃園國際機場 / 香港國際機場',
+     note:'班機 UO111\n出發 13:40，抵達 15:35\n記得帶護照與印好的港簽！',
+     budget:0, budgetCur:'TWD'},
+    {id:'2', time:'15:35', timeEnd:'16:30', cat:'transport', title:'機場 → 佐敦旅舍',
+     location:'香港機場城巴A22巴士站',
+     note:'搭城巴 A22\n「志和街」站下車\n車程約 45 分鐘',
+     budget:33, budgetCur:'HKD'},
+    {id:'3', time:'17:30', timeEnd:'18:00', cat:'hotel', title:'辦理入住：長榮/金莎旅舍',
+     location:'佐敦道 22 號（NCB 南洋商業銀行樓上）',
+     note:'入住時間 14:00–20:00\n放好行李稍作休息',
+     budget:0, budgetCur:'TWD'},
+    {id:'4', time:'18:30', timeEnd:'20:00', cat:'food', title:'晚餐：田記魚蛋牛腩專門店 🍜',
+     location:'碧街店（旺角/佐敦附近）',
+     note:'步行前往碧街店\n崩沙腩必點！\n營業時間 07:00–23:45',
+     budget:80, budgetCur:'HKD'},
+    {id:'5', time:'20:00', timeEnd:'22:00', cat:'sightseeing', title:'旺角夜遊：女人街、廟街夜市 🌃',
+     location:'旺角女人街 / 廟街',
+     note:'城巴 A21 或地鐵至旺角\n逛夜市感受香港煙火氣',
+     budget:0, budgetCur:'HKD'},
+    {id:'6', time:'22:00', timeEnd:'', cat:'food', title:'甜點：佳佳甜品 🍡',
+     location:'寧波街 29 號（佐敦）',
+     note:'步行回佐敦\n芝麻糊、湯圓必點',
+     budget:40, budgetCur:'HKD'}
   ],
   '2026-04-03':[
-    {id:'6',time:'09:00',timeEnd:'09:30',cat:'transport',title:'搭乘天星小輪 ⛴️',location:'尖沙咀天星碼頭',note:'從尖沙咀搭到中環\n欣賞維港早晨',budget:3,budgetCur:'HKD'},
-    {id:'7',time:'10:00',timeEnd:'13:00',cat:'sightseeing',title:'中環半山手扶梯 & 街步',location:'中環至半山自動扶梯',note:'逛大館、PMQ元創方\n午餐：蘭芳園或沾仔記',budget:100,budgetCur:'HKD'},
-    {id:'8',time:'14:00',timeEnd:'17:00',cat:'sightseeing',title:'太平山頂 ⛰️',location:'山頂廣場 香港',note:'搭第六代山頂纜車上山\n建議早去避開人潮',budget:80,budgetCur:'HKD'},
-    {id:'9',time:'18:00',timeEnd:'21:00',cat:'food',title:'叮叮車→銅鑼灣晚餐',location:'銅鑼灣 香港',note:'體驗復古叮叮車\n晚餐在銅鑼灣附近找',budget:150,budgetCur:'HKD'}
+    {id:'7', time:'09:00', timeEnd:'10:00', cat:'food', title:'早餐：澳洲牛奶公司 🥛',
+     location:'白加士街（佐敦）',
+     note:'步行前往，排隊名店\n炒蛋吐司套餐必點\n建議早點去避開長龍',
+     budget:50, budgetCur:'HKD'},
+    {id:'8', time:'10:30', timeEnd:'11:30', cat:'sightseeing', title:'中環：大館、元創方 PMQ',
+     location:'中環 大館 / PMQ 元創方',
+     note:'地鐵：佐敦 → 中環\n逛設計小店、打卡拍照',
+     budget:0, budgetCur:'HKD'},
+    {id:'9', time:'11:30', timeEnd:'13:00', cat:'food', title:'飲茶：蘭芳園 (總店) ☕',
+     location:'結志街 2 號（中環）',
+     note:'叮叮車：租庇利街 → 堅拿道西\n絲襪奶茶創始店，必喝！\n營業時間 07:30–18:00',
+     budget:60, budgetCur:'HKD'},
+    {id:'10', time:'13:00', timeEnd:'14:30', cat:'food', title:'午餐：大壹燒鵝 (銅鑼灣) 🦢',
+     location:'銅鑼灣 大壹燒鵝',
+     note:'營業時間 11:00–22:00\n燒鵝飯必點',
+     budget:100, budgetCur:'HKD'},
+    {id:'11', time:'15:00', timeEnd:'17:00', cat:'shopping', title:'購物：崇光百貨 SOGO 🛍️',
+     location:'銅鑼灣 崇光百貨 SOGO',
+     note:'城巴 2A/2X 或續搭叮叮車至銅鑼灣\n逛百貨、買藥妝',
+     budget:300, budgetCur:'HKD'},
+    {id:'12', time:'17:00', timeEnd:'19:30', cat:'sightseeing', title:'西九藝術公園：夕陽與夜景 🌅',
+     location:'西九文化區藝術公園',
+     note:'城巴 970/970X（跨海快線，西區海底隧道巴士轉乘站）\n夕陽配維港超美，必打卡',
+     budget:0, budgetCur:'HKD'},
+    {id:'13', time:'20:00', timeEnd:'22:00', cat:'food', title:'晚餐：泰式生香 (佐敦) 🌶️',
+     location:'佐敦 泰式生香',
+     note:'搭九巴 12 從西九回佐敦\n營業時間 16:00–02:00\n飯後可去 JunXion 酒吧（16:00–04:00）',
+     budget:120, budgetCur:'HKD'}
   ],
   '2026-04-04':[
-    {id:'10',time:'10:00',timeEnd:'13:00',cat:'sightseeing',title:'深水埗在地文化 🏘️',location:'深水埗鴨寮街',note:'逛鴨寮街、大南街咖啡廳\n吃合益泰小食腸粉！',budget:80,budgetCur:'HKD'},
-    {id:'11',time:'14:30',timeEnd:'18:00',cat:'shopping',title:'旺角血拚 🛍️',location:'旺角女人街',note:'女人街、金魚街、波鞋街\n感受香港快節奏購物',budget:500,budgetCur:'HKD'},
-    {id:'12',time:'18:30',timeEnd:'20:30',cat:'food',title:'晚餐：港式飲茶或冰室',location:'旺角 香港',note:'推薦一點心或義順牛奶公司',budget:120,budgetCur:'HKD'}
+    {id:'14', time:'09:30', timeEnd:'10:30', cat:'food', title:'早餐：小玉名點 🥟',
+     location:'佐敦站附近',
+     note:'步行前往\n營業時間 07:00–20:00',
+     budget:40, budgetCur:'HKD'},
+    {id:'15', time:'11:00', timeEnd:'13:30', cat:'food', title:'深水埗：合益泰 & 公和荳品 🍢',
+     location:'深水埗 合益泰小食 / 公和荳品廠',
+     note:'九巴 6/6C（彌敦道上車）\n合益泰腸粉 06:30–20:30\n公和豆腐花 07:00–21:00\n兩家都要去！',
+     budget:60, budgetCur:'HKD'},
+    {id:'16', time:'14:00', timeEnd:'16:00', cat:'shopping', title:'採買：堅強貿易行 ☕',
+     location:'深水埗 堅強貿易行',
+     note:'九巴 81 或地鐵回旺角/尖沙咀\n港式咖啡豆、食材\n營業時間 09:00–18:00',
+     budget:200, budgetCur:'HKD'},
+    {id:'17', time:'16:30', timeEnd:'18:30', cat:'shopping', title:'海港城 & 珍妮曲奇尖沙咀店 🍪',
+     location:'尖沙咀 海港城 / 珍妮曲奇',
+     note:'珍妮曲奇 10:00–19:00，建議備現金\nBarefoot Asia（12:00–21:00）\n買伴手禮',
+     budget:600, budgetCur:'HKD'},
+    {id:'18', time:'19:00', timeEnd:'21:00', cat:'food', title:'晚餐：幸運茶點點心 (佐敦) 🫖',
+     location:'佐敦 幸運茶點點心',
+     note:'營業時間 08:00–02:00\n或飯後到中環逛蘭桂坊夜景',
+     budget:100, budgetCur:'HKD'}
   ],
   '2026-04-05':[
-    {id:'13',time:'09:00',timeEnd:'11:00',cat:'hotel',title:'退房，寄放行李',location:'長榮旅舍 佐敦',note:'08:00-11:00 前需退房',budget:0,budgetCur:'TWD'},
-    {id:'14',time:'10:00',timeEnd:'12:00',cat:'shopping',title:'最後採買伴手禮 🎁',location:'珍妮曲奇 香港',note:'珍妮曲奇備現金\nBakehouse蛋塔\n月餅禮盒',budget:800,budgetCur:'HKD'},
-    {id:'15',time:'12:00',timeEnd:'14:00',cat:'transport',title:'搭城巴 A22 前往機場',location:'佐敦 上海街巴士站',note:'提早出發，抓緊時間',budget:33,budgetCur:'HKD'},
-    {id:'16',time:'14:55',timeEnd:'',cat:'transport',title:'搭機回台 ✈️',location:'香港國際機場',note:'UO114 航班\n行李不要超重！',budget:0,budgetCur:'TWD'}
+    {id:'19', time:'08:30', timeEnd:'09:30', cat:'hotel', title:'悠閒起床 & 辦理退房',
+     location:'長榮/金莎旅舍 佐敦',
+     note:'退房時間 08:00–11:00\n行李可寄放在旅舍或帶往機場',
+     budget:0, budgetCur:'TWD'},
+    {id:'20', time:'09:30', timeEnd:'10:30', cat:'food', title:'早茶：敏華冰廳 (K11) 🥐',
+     location:'尖沙咀 K11 商場 敏華冰廳',
+     note:'步行/地鐵：佐敦 → 尖沙咀\n營業時間 07:30–23:30\n菠蘿包、奶茶必點',
+     budget:60, budgetCur:'HKD'},
+    {id:'21', time:'10:30', timeEnd:'11:15', cat:'sightseeing', title:'尖沙咀海濱散步 ★ 星光大道',
+     location:'尖沙咀星光大道',
+     note:'欣賞維港白天的景色\n拍張紀念照留念',
+     budget:0, budgetCur:'HKD'},
+    {id:'22', time:'11:15', timeEnd:'12:00', cat:'transport', title:'前往機場 🚌',
+     location:'佐敦站 城巴 A22 巴士站',
+     note:'城巴 A22，佐敦站上車\n車程約 45 分鐘',
+     budget:33, budgetCur:'HKD'},
+    {id:'23', time:'12:00', timeEnd:'14:55', cat:'transport', title:'機場報到 & 候機 ✈️',
+     location:'香港國際機場',
+     note:'完美銜接 UO114 14:55 班機\n抵台 16:45\n行李不要超重！',
+     budget:0, budgetCur:'TWD'}
   ]
 };
 const SEED_TODOS=[
@@ -553,16 +629,57 @@ function showError(msg){
   const e=$('ld-error');e.textContent=msg;e.classList.add('show');
 }
 
+// Version tag — bump this to force re-import itinerary from Excel
+const ITINERARY_VERSION = 'v3-excel-import';
+
 async function seedIfEmpty(){
   setMsg('檢查資料庫...');
-  const itSnap=await getDocs(collection(db,'itinerary'));
-  if(itSnap.empty){
-    setMsg('寫入行程資料...');
-    const b=writeBatch(db);
+
+  // Check version doc to decide whether to re-import itinerary
+  const verRef = doc(db,'_meta','itinerary_version');
+  let needReseed = false;
+  try {
+    const verSnap = await getDocs(collection(db,'_meta'));
+    const verDoc = verSnap.docs.find(d=>d.id==='itinerary_version');
+    if(!verDoc || verDoc.data().version !== ITINERARY_VERSION) needReseed = true;
+  } catch(e){ needReseed = true; }
+
+  if(needReseed){
+    setMsg('匯入 Excel 行程資料（共 23 筆）...');
+    // Delete old itinerary docs first
+    const oldSnap = await getDocs(collection(db,'itinerary'));
+    const delBatch = writeBatch(db);
+    oldSnap.forEach(d=>delBatch.delete(d.ref));
+    // Also delete old auto-imported expenses
+    const exSnap2 = await getDocs(collection(db,'expenses'));
+    exSnap2.forEach(d=>{ if(d.data().fromItinerary) delBatch.delete(d.ref); });
+    await delBatch.commit();
+
+    // Write new itinerary
+    const b = writeBatch(db);
     for(const [date,evs] of Object.entries(SEED_IT))
       for(const ev of evs) b.set(doc(db,'itinerary',ev.id),{...ev,date,createdAt:Date.now()});
+    // Write version marker
+    b.set(verRef,{version:ITINERARY_VERSION,importedAt:Date.now()});
     await b.commit();
+
+    // Auto-import budgets to expenses
+    const exBatch = writeBatch(db);
+    for(const [date,evs] of Object.entries(SEED_IT)){
+      for(const ev of evs){
+        if(ev.budget && +ev.budget > 0){
+          const exId='ex_it_'+ev.id;
+          exBatch.set(doc(db,'expenses',exId),{
+            id:exId, title:ev.title, amount:ev.budget, currency:ev.budgetCur,
+            source:'trip', createdAt:Date.now()+parseInt(ev.id),
+            fromItinerary:true, itineraryId:ev.id
+          });
+        }
+      }
+    }
+    await exBatch.commit();
   }
+
   const tdSnap=await getDocs(collection(db,'todos'));
   if(tdSnap.empty){
     setMsg('寫入待辦清單...');
@@ -571,8 +688,9 @@ async function seedIfEmpty(){
     await b.commit();
   }
   const exSnap=await getDocs(collection(db,'expenses'));
-  if(exSnap.empty){
-    setMsg('寫入花費記錄...');
+  const hasManual=exSnap.docs.some(d=>!d.data().fromItinerary);
+  if(!hasManual){
+    setMsg('寫入基本花費記錄...');
     const b=writeBatch(db);
     for(const e of SEED_EX) b.set(doc(db,'expenses',e.id),e);
     await b.commit();
